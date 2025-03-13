@@ -1,4 +1,4 @@
-EMAIL_SENDER = 'cos@gmail.com'
-EMAIL_PASSWORD = 'password'
-SMTP_SERVER = 'smtp.gmail.com'
-SMTP_PORT = 587
+EMAIL_SENDER = 'mail'
+EMAIL_PASSWORD = 'pass'
+SMTP_SERVER = 'smtp.poczta.onet.pl'
+SMTP_PORT = 465
