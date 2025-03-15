@@ -6,8 +6,14 @@ from email.message import EmailMessage
 from flask import jsonify
 
 from config import EMAIL_SENDER, EMAIL_PASSWORD, SMTP_PORT, SMTP_SERVER
-
-
+from email.mime.text import MIMEText
+import sys
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
 class EmailSender:
     def __init__(self):
         pass
@@ -17,15 +23,27 @@ class EmailSender:
         em['From'] = EMAIL_SENDER
         em['To'] = email_receiver
         em['Subject'] = "Twój kod weryfikacyjny"
-        em.set_content(f"Twój kod: {auth_key}")
+        logging.info("tworzymy")
+        text = f"""
+        Aby potwierdzić swoje konto kliknij w poniższy link:
+        http://127.0.0.1:5000/confirm/{auth_key}
+        Pozdro 600
+        """
+        #em.set_content(MIMEText(text,'html'))
+        em.set_content(text)
+        logging.info("content ustawiony")
         context = ssl.create_default_context()
+        logging.info("context znowu sie wyjebal")
         try:
-            with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context) as smtp:
+            with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT,context=context) as smtp:
                 smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
+                logging.info("login klasa")
                 smtp.sendmail(EMAIL_SENDER, email_receiver, em.as_string())
-                return jsonify({"message": f"Email sent successfully to {email_receiver}"}), 200
+                logging.info(em.as_string())
+                logging.info("wysłane")
+                return jsonify(f"Email sent successfully to {email_receiver}"), 200
 
         except smtplib.SMTPException as e:
-            return jsonify(f"Błąd SMTP: {e}"), 400
+            return jsonify({"message":f"Błąd SMTP: {e}"}), 400
         except Exception as e:
-            return jsonify(f"Nieoczekiwany bląd: {e}"), 400
+            return jsonify({"message":f"Nieoczekiwany bląd: {e}"}), 400
