@@ -28,7 +28,7 @@ class EmailSender:
         logging.info("tworzymy")
         text = f"""
         Aby potwierdzić swoje konto kliknij w poniższy link:
-        http://127.0.0.1:5000/confirm/{auth_key}
+        http://127.0.0.1:5000/auth/confirm/{auth_key}
         Pozdro 600
         """
         # em.set_content(MIMEText(text,'html'))
