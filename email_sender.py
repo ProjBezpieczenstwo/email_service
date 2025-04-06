@@ -20,22 +20,29 @@ class EmailSender:
     def __init__(self):
         pass
 
-    def send_email(self, email_receiver: str, auth_key: str):
+    def send_email(self, email_receiver: str, auth_key: str, token: bool):
         em = EmailMessage()
         em['From'] = EMAIL_SENDER
         em['To'] = email_receiver
         em['Subject'] = "Twój kod weryfikacyjny"
         logging.info("tworzymy")
-        text = f"""
-        Aby potwierdzić swoje konto kliknij w poniższy link:
-        http://127.0.0.1:8000/auth/confirm?uuid={auth_key}
-        Pozdro 600
-        """
+        if not token:
+            text = f"""
+            Aby potwierdzić swoje konto kliknij w poniższy link:
+            http://127.0.0.1:8000/auth/confirm?uuid={auth_key}
+            Pozdro 600
+            """
+        else:
+            text = f"""
+            Jak chcesz sie zarejestrować dawaj mordo z tym tokenem:
+            {auth_key}
+            Pozdro 600
+            """
         # em.set_content(MIMEText(text,'html'))
         em.set_content(text)
         logging.info("content ustawiony")
         context = ssl.create_default_context()
-        logging.info("context znowu sie wyjebal")
+        logging.info("context utworzony")
         try:
             with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context) as smtp:
                 smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)

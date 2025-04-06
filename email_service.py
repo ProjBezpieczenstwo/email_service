@@ -1,8 +1,10 @@
+import logging
+import sys
+
 from flask import Flask, request, jsonify
 
 from email_sender import EmailSender
-import sys
-import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -22,7 +24,19 @@ def send_email():
     if not email_receiver or not auth_key:
         return jsonify({"message": "email_receiver and body are required."}), 400
     logging.info("po test auth_keya itp")
-    return email_sender.send_email(email_receiver, auth_key)
+    return email_sender.send_email(email_receiver, auth_key, False)
+
+
+@app.route('/token-email', methods=['POST'])
+def token_email():
+    data = request.json
+    email_receiver = data.get('email_receiver')
+    token = data.get('token')
+    logging.info("test token itp")
+    if not email_receiver or not token:
+        return jsonify({"message": "email_receiver and body are required."}), 400
+    logging.info("po test token itp")
+    return email_sender.send_email(email_receiver, token, True)
 
 
 if __name__ == '__main__':
