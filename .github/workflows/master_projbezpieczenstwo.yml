@@ -42,6 +42,6 @@ jobs:
       - name: Deploy to Azure Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: projbezpieczenstwo-rg
+          resourceGroup: Projekt_Bezpieczeństwo
           containerAppName: email-service-app
           imageToDeploy: ghcr.io/projbezpieczenstwo/email_service:${{ github.sha }}
