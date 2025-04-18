@@ -36,7 +36,7 @@ def token_email():
     token = data.get('token')
     
     logging.info("test token itp")
-    if not email_receiver or token:
+    if not email_receiver or not token:
         return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test token itp")
     
