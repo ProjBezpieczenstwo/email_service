@@ -1,4 +1,5 @@
-EMAIL_SENDER = 'korepetycjewzim@op.pl'
-EMAIL_PASSWORD = 'HasloNa10Znakow'
-SMTP_SERVER = 'smtp.poczta.onet.pl'
-SMTP_PORT = 465
+import os
+EMAIL_SENDER = os.getenv("SMTP_EMAIL")
+EMAIL_PASSWORD = os.getenv("SMTP_EMAIL")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = os.getenv("SMTP_PORT")
