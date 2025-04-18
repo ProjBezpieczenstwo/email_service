@@ -29,7 +29,7 @@ class EmailSender:
         if not token:
             text = f"""
             Aby potwierdzić swoje konto kliknij w poniższy link:
-            {FRONTEND_URL}/auth/confirm?uuid={auth_key}
+            {FRONTEND_URL}/auth/confirm?token={auth_key}
             Pozdro 600
             """
         else:
