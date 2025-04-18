@@ -22,7 +22,7 @@ def send_email():
     auth_key = data.get('auth_key')
     
     logging.info("test auth_keya itp")
-    if not email_receiver or auth_key:
+    if not email_receiver or not auth_key:
         return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test auth_keya itp")
     
