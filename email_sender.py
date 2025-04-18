@@ -7,7 +7,7 @@ from email.message import EmailMessage
 
 from flask import jsonify
 
-from config import EMAIL_SENDER, EMAIL_PASSWORD, SMTP_PORT, SMTP_SERVER
+from config import EMAIL_SENDER, EMAIL_PASSWORD, SMTP_PORT, SMTP_SERVER, FRONTEND_URL
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,7 +29,7 @@ class EmailSender:
         if not token:
             text = f"""
             Aby potwierdzić swoje konto kliknij w poniższy link:
-            http://127.0.0.1:8000/auth/confirm?uuid={auth_key}
+            {FRONTEND_URL}/auth/confirm?uuid={auth_key}
             Pozdro 600
             """
         else:
