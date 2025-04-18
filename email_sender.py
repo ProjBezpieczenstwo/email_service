@@ -43,6 +43,10 @@ class EmailSender:
         logging.info("content ustawiony")
         context = ssl.create_default_context()
         logging.info("context utworzony")
+        logging.info(SMTP_PORT)
+        logging.info(SMTP_SERVER)
+        logging.info(EMAIL_SENDER)
+        logging.info(EMAIL_PASSWORD)
         try:
             with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context) as smtp:
                 smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
