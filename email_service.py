@@ -22,6 +22,8 @@ def send_email():
     auth_key = data.get('auth_key')
     
     logging.info("test auth_keya itp")
+    logging.info(f"email: {email_receiver}")
+    logging.info(f"auth_key: {auth_key}")
     if not email_receiver or not auth_key:
         return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test auth_keya itp")
@@ -36,6 +38,8 @@ def token_email():
     token = data.get('token')
     
     logging.info("test token itp")
+    logging.info(f"email: {email_receiver}")
+    logging.info(f"token: {token}")
     if not email_receiver or not token:
         return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test token itp")
