@@ -17,25 +17,29 @@ email_sender = EmailSender()
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
-    data = request.json
+    data = request.get_json() or {}
     email_receiver = data.get('email_receiver')
     auth_key = data.get('auth_key')
+    
     logging.info("test auth_keya itp")
-    if not email_receiver or not auth_key:
-        return jsonify({"message": "email_receiver and body are required."}), 400
+    if not email_receiver or auth_key:
+        return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test auth_keya itp")
+    
     return email_sender.send_email(email_receiver, auth_key, False)
 
 
 @app.route('/token-email', methods=['POST'])
 def token_email():
-    data = request.json
+    data = request.get_json() or {}
     email_receiver = data.get('email_receiver')
     token = data.get('token')
+    
     logging.info("test token itp")
-    if not email_receiver or not token:
-        return jsonify({"message": "email_receiver and body are required."}), 400
+    if not email_receiver or token:
+        return jsonify({"message": "missing data to send email"}), 400
     logging.info("po test token itp")
+    
     return email_sender.send_email(email_receiver, token, True)
 
 
